@@ -13,7 +13,14 @@ LINE = 'My emergency contact asked to be moved to "general enquiries."'
 
 
 def validate(line: str) -> None:
+    """Reject empty, over-long, multi-line, or padded lines.
+
+    A line with leading or trailing whitespace passes the length gate but
+    wastes characters and looks sloppy, so it is rejected too.
+    """
     if not line or not line.strip():
+        sys.exit(2)
+    if line != line.strip():
         sys.exit(2)
     if len(line) > 140:
         sys.exit(2)
